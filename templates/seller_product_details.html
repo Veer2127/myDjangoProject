@@ -1,0 +1,43 @@
+{% extends 'seller_header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+
+
+
+<body id="category">
+
+	
+	
+	<div class="container">
+		<div class="row">
+          {{% for i in products %}}  
+            <div class="col-lg-4 col-lg-6 text-center ">
+                <div class="single-product-item">
+                    <div class="product_image">
+                        <a href="single_product.html"><img src="{{i.product_image.url}}" alt="" width="250px" height="250px" ></a>
+
+                    </div>
+                    <h3>{{product.product_name}}</h3>
+                    <p class="product_price"><span>1 pair</span>{{product.product_price}}</p>
+                    <p class="product_price">{{product.product_description}}</p>
+                    <a href="{% url 'seller_edit_product' pk=product.pk %}" class="cart-btn">Edit Product</a>
+                    <a href="{% url 'seller_delete_product' pk=product.pk %}" class="cart-btn">Delete Product</a>
+                </div>
+            </div>
+			
+			{% endfor %}		
+		</div>
+				
+				
+	</div>
+		
+	
+<br>
+<br>
+	
+</body>
+
+</html>
+{% endblock %}
