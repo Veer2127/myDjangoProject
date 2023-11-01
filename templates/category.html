@@ -212,33 +212,36 @@
 				<!-- End Filter Bar -->
 				<!-- Start Best Seller -->
 				<section class="lattest-product-area pb-40 category-list">
+				
 					<div class="row">
 							
-						<!-- single product -->
-						<div class="col-lg-4 col-md-6">
-							<div class="single-product">
+						
+					
+						
 								
 						<!-- single product -->
+						{% for i in products %}
 						<div class="col-lg-4 col-md-6">
 							<div class="single-product">
-								<a><img src="{{product.product_image.url}}" alt="" height="250px" width="250px"></a>
+								<img src="{{i.product_image.url}}" alt="" height="250px" width="250px">
 							</div>
 
 								<div class="product-details">
-									<h6>{{product.product_name}}</h6>
+									<h6>{{i.product_name}}</h6>
 									<div class="price">
-										<h6>{{product.product_price}}</h6>
+										<h6>{{i.product_price}}</h6>
 										
 									</div>
+									
 									<div class="prd-bottom">
 
-										<a href="{% url 'cart' %}" class="social-info">
+										<a href="{% url 'add_to_cart' pk=i.pk %}" class="social-info">
 											<span class="ti-bag"></span>
 											<p class="hover-text">Add to Bag</p>
 										</a>
-										<a href="" class="social-info">
+										<a href="{% url 'add_to_wishlist' pk=i.pk %}" class="social-info">
 											<span class="lnr lnr-heart"></span>
-											<p class="hover-text"> Wishlist</p>
+											<p class="hover-text">Add To Wishlist</p>
 										</a>
 										<a href="" class="social-info">
 											<span class="lnr lnr-sync"></span>
@@ -250,14 +253,14 @@
 										</a>
 										
 									</div>
+									
 								</div>
+								
+						</div>
+						{% endfor %}
 							
 						</div>
-						
-						
-								</div>
-							</div>
-						</div>
+
 						
 				<!-- Start Filter Bar -->
 				<div class="filter-bar d-flex flex-wrap align-items-center">

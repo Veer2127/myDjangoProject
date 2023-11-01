@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from . models import Contact,User,Product
+from . models import Contact,User,Product,Wishlist,Cart
 # Create your views here.
 def index(request):
     products=Product.objects.all()
@@ -189,7 +189,8 @@ def seller_delete_product(request,pk):
 
 
 def category(request):
-    return render(request,'category.html')
+    products=Product.objects.all()
+    return render(request,'category.html',{'products':products})
    
 
 def single_product(request):
@@ -199,7 +200,49 @@ def checkout(request):
     return render(request,'checkout.html')
 
 def cart(request):
-    return render(request,'cart.html')
+    user=User.objects.get(email=request.session['email'])
+    carts=Cart.objects.filter(user=user)
+    return render(request,'cart.html',{'carts':carts})
+
+def wishlist(request):
+    user=User.objects.get(email=request.session['email'])
+    wishlists=Wishlist.objects.filter(user=user)
+    return render(request,'Wishlist.html',{'wishlists':wishlists})
+
+def add_to_wishlist(request,pk):
+    product=Product.objects.get(pk=pk)
+    user=User.objects.get(email=request.session['email'])
+    Wishlist.objects.create(
+        user=user,
+        product=product
+    )
+    return redirect('wishlist')
+
+
+def remove_from_wishlist(request,pk):
+    product=Product.objects.get(pk=pk)
+    user=User.objects.get(email=request.session['email'])
+    wishlist=Wishlist.objects.get(user=user,product=product)
+    wishlist.delete()
+    return redirect('wishlist')
+
+def add_to_cart(request,pk):
+    product=Product.objects.get(pk=pk)
+    user=User.objects.get(email=request.session['email'])
+    Cart.objects.create(
+        user=user,
+        product=product,
+        product_price=product.product_price,
+        total_price=product.product_price,
+    )
+    return redirect('cart')  
+
+def remove_from_cart(request,pk):
+    product=Product.objects.get(pk=pk)
+    user=User.objects.get(email=request.session['email'])
+    cart=Cart.objects.get(user=user,product=product)
+    cart.delete()
+    return redirect('cart')
 
 def confirmation(request):
     return render(request,'confirmation.html')

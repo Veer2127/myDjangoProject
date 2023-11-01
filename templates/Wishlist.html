@@ -1,4 +1,4 @@
-{% extends 'seller_header.html' %}
+{% extends 'header.html' %}
 {% load static %}
 {% block content %}
 <!DOCTYPE html>
@@ -14,7 +14,7 @@
 		<div class="container">
 			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 				<div class="col-first">
-					<h1>Seller View All Products</h1>
+					<h1>Your Wishlist </h1>
 					<nav class="d-flex align-items-center">
 						<a href="{% url 'seller_index' %}">Home<span class="lnr lnr-arrow-right"></span></a>
 						<a href="#">Shop<span class="lnr lnr-arrow-right"></span></a>
@@ -58,34 +58,32 @@
 				<!-- End Filter Bar -->
 				<!-- Start Best Seller -->
 				<section class="lattest-product-area pb-40 category-list">
+				
 					<div class="row">
-					
 						<!-- single product -->
-						{% for i in products %}
-						<div class="col-lg-4 col-md-6">
+						{% for i in wishlists %}
+						<div class="col-lg-3 col-md-6">
+
 							<div class="single-product">
-								<a><img src="{{i.product_image.url}}" height="250px" width="250px" ></a>
+								<img src="{{i.product.product_image.url}}" height="250px" width="250px" >
 							</div>
 
 								<div class="product-details">
-									<h6>{{i.product_name}}</h6>
+									<h6>{{i.product.product_name}}</h6>
 									<div class="price">
-										<h6>{{i.product_price}}</h6>
+										<h6>{{i.product.product_price}}</h6>
 										
 									</div>
+									
 									<div class="prd-bottom">
 
-										<a href="{% url 'cart' %}" class="social-info">
+										<a href="{% url 'add_to_cart' pk=i.product.pk %}" class="social-info">
 											<span class="ti-bag"></span>
 											<p class="hover-text">Add to Bag</p>
 										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-heart"></span>
-											<p class="hover-text"> Wishlist</p>
-										</a>
-										<a href="" class="social-info">
+										<a href="{% url 'remove_from_wishlist' pk=i.product.pk %}" class="social-info">
 											<span class="lnr lnr-sync"></span>
-											<p class="hover-text"> Compare</p>
+											<p class="hover-text"> Remove To Wishlist</p>
 										</a>
 										<a href="" class="social-info">
 											<span class="lnr lnr-move"></span>
@@ -93,16 +91,14 @@
 										</a>
 										
 									</div>
+									
 								</div>
-							
+								
 						</div>
-						
-					{% endfor %}
-					
+						{% endfor %}
+							
 					</div>
 				</section>
-				<!-- End Best Seller -->
-				
 			</div>
 		</div>
 	</div>

@@ -58,12 +58,19 @@
 						{% if request.session.email %}
 						<li class="nav-item">
                             <a class="nav-link" href="{% url 'logout' %}">Logout({{request.session.fname}})</a>
+                            <li>    
+                                    
+                                <a href="{% url 'profile' %}"> <img src="{{request.session.profile_pic}}" height="30px" width="30px"></a>
+                            </li>
                         </li>
+                        
                         <li class="nav-item"><a class="nav-link" href="{% url 'seller_change_password' %}">Change Password</a></li>
                     
 						{% else %}
 						<li><a class="nav-link" href="{% url 'registration' %}">registration Form</a></li>
-						<li><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                            
+                        </li>
+                        
 						
 						{% endif %}
                                 
@@ -73,7 +80,16 @@
                                 <li class="nav-item">
                                     <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
                                 </li>
+
                             </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                
+                                <li>  <a target="_blank" href="https://wa.me/+917405493922?text=I'm%20interested%20in%20your%20car%20for%20sale">
+                                  
+                                  <img src="/static/img/whatsapp.png" height="30px" width="30px"> 
+                                  </a>
+                                </li>
+                              </ul>
                         </div>
                     </div>
                 </nav>

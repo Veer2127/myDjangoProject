@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 # Create your models here.
 
@@ -28,11 +29,30 @@ class User(models.Model):
         return self.fname+ " " + self.lname
 
 class Product(models.Model):
-    seller=models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+    seller=models.ForeignKey(User,on_delete=models.CASCADE)
     product_name=models.CharField(max_length=40)
     product_price=models.CharField(max_length=10)
     product_image=models.ImageField(upload_to="media/")
     product_description=models.TextField() 
 
     def __str__(self):
-        return self.product_name   
+        return self.product_name  
+
+class Wishlist(models.Model):
+   user=models.ForeignKey(User,on_delete=models.CASCADE)
+   product=models.ForeignKey(Product,on_delete=models.CASCADE)
+   date=models.DateTimeField(default=datetime.now)
+
+   def __str__(self):
+        return self.product 
+
+class Cart(models.Model):
+   user=models.ForeignKey(User,on_delete=models.CASCADE)
+   product=models.ForeignKey(Product,on_delete=models.CASCADE)
+   date=models.DateTimeField(default=datetime.now)
+   product_price=models.PositiveIntegerField()
+   product_qty=models.PositiveIntegerField(default=1)
+   total_price=models.PositiveIntegerField()
+   shipping=models.PositiveIntegerField(default=10)
+
+   
