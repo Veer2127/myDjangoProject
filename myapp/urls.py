@@ -28,6 +28,10 @@ urlpatterns = [
   path('tracking/',views.tracking,name='tracking'),
   path('seller_product_details/<int:pk>/',views.seller_product_details,name='seller_product_details'),
   path('profile/',views.profile,name='profile'),
+  path('forgot_password/',views.forgot_password,name='forgot_password'),
+  path('verify-otp/',views.verify_otp,name='verify-otp'),
+  path('new_password/',views.new_password,name='new_password'),
+  path('change_qty/',views.change_qty,name='change_qty'),
   
 
 ]

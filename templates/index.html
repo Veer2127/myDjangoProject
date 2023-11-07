@@ -1,39 +1,7 @@
 {% extends 'header.html' %}
 {% load static %}
 {% block content %}
-<!DOCTYPE html>
-<html lang="zxx" class="no-js">
 
-<head>
-	<!-- Mobile Specific Meta -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<!-- Favicon-->
-	<link rel="shortcut icon" href="/static/img/fav.png">
-	<!-- Author Meta -->
-	<meta name="author" content="CodePixar">
-	<!-- Meta Description -->
-	<meta name="description" content="">
-	<!-- Meta Keyword -->
-	<meta name="keywords" content="">
-	<!-- meta character set -->
-	<meta charset="UTF-8">
-	<!-- Site Title -->
-	<title>Karma Shop</title>
-	<!--
-		CSS
-		============================================= -->
-	<link rel="stylesheet" href="css/linearicons.css">
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/themify-icons.css">
-	<link rel="stylesheet" href="css/bootstrap.css">
-	<link rel="stylesheet" href="css/owl.carousel.css">
-	<link rel="stylesheet" href="css/nice-select.css">
-	<link rel="stylesheet" href="css/nouislider.min.css">
-	<link rel="stylesheet" href="css/ion.rangeSlider.css" />
-	<link rel="stylesheet" href="css/ion.rangeSlider.skinFlat.css" />
-	<link rel="stylesheet" href="css/magnific-popup.css">
-	<link rel="stylesheet" href="css/main.css">
-</head>
 
 <body>
 
@@ -229,7 +197,7 @@
 					<div class="col-lg-3 col-md-6">
 						
 						<div class="single-product">
-							<img  src="{{ i.product_image.url }}" alt="">
+							<img  src="{{ i.product_image.url }}" height="300px" width="250px">
 							<div class="product-details">
 								<h6>{{i.product_name}}</h6>
 								<div class="price">
@@ -239,11 +207,11 @@
 									
 								<div class="prd-bottom">
 
-									<a href="{% url 'cart' %}" class="social-info">
+									<a href="{% url 'add_to_cart' pk=i.pk %}" class="social-info">
 										<span class="ti-bag"></span>
 										<p class="hover-text">add to bag</p>
 									</a>
-									<a href="{% url 'wishlist' %}" class="social-info">
+									<a href="{% url 'add_to_wishlist' pk=i.pk %}" class="social-info">
 										<span class="lnr lnr-heart"></span>
 										<p class="hover-text">Wishlist</p>
 									</a>
@@ -251,7 +219,7 @@
 										<span class="lnr lnr-sync"></span>
 										<p class="hover-text">compare</p>
 									</a>
-									<a href="" class="social-info">
+									<a href="{% url 'single_product' %}" class="social-info">
 										<span class="lnr lnr-move"></span>
 										<p class="hover-text">view more</p>
 									</a>

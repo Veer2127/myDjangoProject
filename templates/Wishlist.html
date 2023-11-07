@@ -62,40 +62,39 @@
 					<div class="row">
 						<!-- single product -->
 						{% for i in wishlists %}
-						<div class="col-lg-3 col-md-6">
-
-							<div class="single-product">
-								<img src="{{i.product.product_image.url}}" height="250px" width="250px" >
-							</div>
-
-								<div class="product-details">
-									<h6>{{i.product.product_name}}</h6>
-									<div class="price">
-										<h6>{{i.product.product_price}}</h6>
-										
-									</div>
+					<div class="col-lg-3 col-md-6">
+						
+						<div class="single-product">
+							<img  src="{{ i.product.product_image.url }}" height="300px" width="250px">
+							<div class="product-details">
+								<h6>{{i.product.product_name}}</h6>
+								<div class="price">
+									<h6>{{i.product.product_price}}</h6>
+									<h6 class="l-through">$210.00</h6>
+								</div>
 									
-									<div class="prd-bottom">
+								<div class="prd-bottom">
 
-										<a href="{% url 'add_to_cart' pk=i.product.pk %}" class="social-info">
-											<span class="ti-bag"></span>
-											<p class="hover-text">Add to Bag</p>
-										</a>
-										<a href="{% url 'remove_from_wishlist' pk=i.product.pk %}" class="social-info">
-											<span class="lnr lnr-sync"></span>
-											<p class="hover-text"> Remove To Wishlist</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-move"></span>
-											<p class="hover-text"> More Details</p>
-										</a>
-										
-									</div>
+									<a href="{% url 'add_to_cart' pk=i.product.pk %}" class="social-info">
+										<span class="ti-bag"></span>
+										<p class="hover-text">Add to Bag</p>
+									</a>
+									<a href="{% url 'remove_from_wishlist' pk=i.product.pk %}" class="social-info">
+										<span class="lnr lnr-sync"></span>
+										<p class="hover-text"> Remove To Wishlist</p>
+									</a>
+									<a href="" class="social-info">
+										<span class="lnr lnr-move"></span>
+										<p class="hover-text"> More Details</p>
+									</a>
 									
 								</div>
-								
+							</div>
+							
 						</div>
-						{% endfor %}
+						
+					</div>
+					{% endfor %}
 							
 					</div>
 				</section>

@@ -1,5 +1,7 @@
 from django.shortcuts import render,redirect
 from . models import Contact,User,Product,Wishlist,Cart
+import random
+import requests
 # Create your views here.
 def index(request):
     products=Product.objects.all()
@@ -274,3 +276,56 @@ def profile(request):
         return render(request,'profile.html',{'user':user,'msg':msg})
     else:
         return render(request,'profile.html',{'user':user})
+    
+def forgot_password(request):
+    if request.method=="POST":
+        phone=request.POST['phone']
+        try:
+            user=User.objects.get(phone=phone)
+            otp=random.randint(1000,9999)
+            url = "https://www.fast2sms.com/dev/voice"
+
+            querystring = {"authorization":"eYLHjNJ923XdpuOB7gqnTlVPD5FzEUwQ6abGAkR0McrKSIvWimqiMTAY02jxVCHLf8rUQ5BnsJ4PX3Nb","variables_values":str(otp),"route":"otp","numbers":user.phone}
+
+            headers = {
+                'cache-control': "no-cache"
+                }
+
+            response = requests.request("GET", url, headers=headers, params=querystring)
+            return render(request,'otp.html',{'phone':phone,'otp':otp})
+        except:
+            msg="Mobile Not Registered"
+            return render(request,'forgot_password.html',{'msg':msg})
+            
+    else:
+        return render(request,'forgot_password.html')
+    
+def verify_otp(request):
+    phone=request.POST['phone']
+    otp=request.POST['otp']
+    uotp=request.POST['uotp']
+
+    if otp==uotp:
+        return render(request,'new_password.html',{'phone':phone,'otp':otp})
+    else:
+        msg="Incorrect OTP"
+        return render(request,'otp.html',{'phone':phone,'otp':otp,'msg':msg})
+    
+def new_password(request):
+    phone=request.POST['phone']
+    np=request.POST['new_password']
+    cnp=request.POST['cnew_password']
+
+    if np==cnp:
+        user=User.objects.get(phone=phone)
+        user.password=np
+        user.save()
+        msg="Password Updated Successfully"
+        return render(request,'login.html',{'msg':msg})
+    else:
+        msg="New Password and Confirm New Password Does not matched!"
+        return render(request,'new_password.html',{'phone':phone})
+    
+
+def change_qty(request):
+    return render (request,'cart.html')
