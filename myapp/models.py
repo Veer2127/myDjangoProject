@@ -43,8 +43,7 @@ class Wishlist(models.Model):
    product=models.ForeignKey(Product,on_delete=models.CASCADE)
    date=models.DateTimeField(default=datetime.now)
 
-   def __str__(self):
-        return self.product 
+ 
 
 class Cart(models.Model):
    user=models.ForeignKey(User,on_delete=models.CASCADE)
@@ -54,5 +53,11 @@ class Cart(models.Model):
    product_qty=models.PositiveIntegerField(default=1)
    total_price=models.PositiveIntegerField()
    shipping=models.PositiveIntegerField(default=10)
+   payment_status=models.BooleanField(default=False)
 
    
+class Reviews(models.Model):
+    rname=models.CharField(max_length=100)
+    remail=models.EmailField()
+    rmobile=models.CharField(max_length=10,unique=True)
+    rmessage=models.TextField()

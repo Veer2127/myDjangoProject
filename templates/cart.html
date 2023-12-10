@@ -62,18 +62,20 @@
                                 </td>
                                 <td>
                                     <div class="product_count">
-                                        <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
-                                            class="input-text qty">
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp&amp  > 0 ) result.value++;return false;"
-                                            class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp&amp  > 0 ) result.value--;return false;"
-                                            class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+                                        <form name="change_qty" method="post" action="{% url 'change_qty' %}" >
+                                            {% csrf_token %}
+                                            <input type="hidden" name="pk" value="{{i.pk}}" class="input-text qty">
+                                            
+                                           
+                                            <input type="number" value="{{i.product_qty}}" name="product_qty" onchange="this.form.submit()">
+                                            
+                                        </form>
+                                        
                                     </div>
-
                                 </td>
                                 
                                 <td>
-                                    <h5>$720.00</h5>
+                                    <h5>{{i.total_price}}</h5>
                                 </td>
                                 <td class="product-remove"><a href="{% url 'remove_from_cart' i.product.pk %}"><i class="fa fa-close"></i> </a></td>
                                
@@ -109,7 +111,7 @@
                                     <h5>Subtotal</h5>
                                 </td>
                                 <td>
-                                    <h5>$2160.00</h5>
+                                    <h5>{{net_price}}</h5>
                                 </td>
                             </tr>
                             <tr class="shipping_area">
@@ -147,19 +149,10 @@
                                 </td>
                             </tr>
                             <tr class="out_button_area">
-                                <td>
-
-                                </td>
-                                <td>
-
-                                </td>
-                                <td>
-
-                                </td>
+                                
                                 <td>
                                     <div class="checkout_btn_inner d-flex align-items-center">
-                                        <a class="gray_btn" href="#">Continue Shopping</a>
-                                        <a class="primary-btn" href="#">Proceed to checkout</a>
+                                       
                                     </div>
                                 </td>
                             </tr>
@@ -167,11 +160,63 @@
                         </tbody>
                     </table>
                 </div>
+                <form method="post">
+                    {% csrf_token %}
+                        <input type="hidden" id="net_price" name="amount" value="{{net_price}}">
+                        <!-- <a href="" type="button" class="btn btn-lg btn-primary" id="checkout-button">Checkout</a> -->
+                        <p id="demo"><button type="submit" value="submit" class="primary-btn">Click me.</button></p>
+                    </form>
             </div>
         </div>
     </section>
+    <script>
+        
+        document.getElementById("demo").addEventListener("click", myFunction);
+        
+        function myFunction() {
+          document.getElementById("demo").innerHTML = "YOU CLICKED ME!";
+        }
+        </script>
+        
+    <script>
+        //var stripe=Stripe('pk_test_51O9sJPSDaj9kjgz1JZYHLZ2ppmsxQIiWhGGGEoQWf8gwd8ommMX0yNCb7KjEtTvfS8PwNgVv4eaoSIDfXbZKhXm100Ka9Rooqz');
+
+        var checkoutButton=document.getElementById('checkout-button');
+        document.getElementById("demo").addEventListener("click",myfunction);
+
+        function myfunction(){
+            console.log("something doing here");
+            console.log("Inside the function")
+            var stripe=Stripe('pk_test_51O9sJPSDaj9kjgz1JZYHLZ2ppmsxQIiWhGGGEoQWf8gwd8ommMX0yNCb7KjEtTvfS8PwNgVv4eaoSIDfXbZKhXm100Ka9Rooqz');
+            console.log("stripe pub key",stripe);
+            fetch('/create-checkout-session/',{
+                method:'POST',
+                headers:{
+                    'Accept':'application/json',
+                    'X-Requested-With':'XMLHttpRequest',
+                },
+                body:JSON.stringify({'post_data':'{{net_price}}'})
+            })
+        .then(function(response){
+            return response.json();
+        })
+        .then(function(session){
+            return stripe.redirectToCheckout({sessionId:session.id});
+        })
+        .then(function(result){
+            if(result.error){
+                alert(result.error.message);
+            }
+        })
+        .catch(function(error){
+            console.error('Error:',error);
+        });
+        };
+    </script>
+    
     <!--================End Cart Area =================-->
-{% endblock %}    
+  
 </body>
 
 </html>
+{% endblock %}  

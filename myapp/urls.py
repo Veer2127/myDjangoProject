@@ -14,7 +14,7 @@ urlpatterns = [
   path('category/',views.category,name='category'),
   path('seller_edit_product/<int:pk>/',views.seller_edit_product,name='seller_edit_product'),
   path('seller_delete_product/<int:pk>/',views.seller_delete_product,name='seller_delete_product'),
-  path('single_product/',views.single_product,name='single_product'),
+  path('single_product/<int:pk>/',views.single_product,name='single_product'),
   path('checkout/',views.checkout,name='checkout'),
   path('cart/',views.cart,name='cart'),
   path('wishlist/',views.wishlist,name='wishlist'),
@@ -28,6 +28,13 @@ urlpatterns = [
   path('tracking/',views.tracking,name='tracking'),
   path('seller_product_details/<int:pk>/',views.seller_product_details,name='seller_product_details'),
   path('profile/',views.profile,name='profile'),
+  path('forgot_password/',views.forgot_password,name='forgot_password'),
+  path('verify-otp/',views.verify_otp,name='verify-otp'),
+  path('new_password/',views.new_password,name='new_password'),
+  path('change_qty/',views.change_qty,name='change_qty'),
+  path('create-checkout-session/',views.create_checkout_session,name='payment'),
+  path('success.html/',views.success,name='success'),
+  path('cancel.html/',views.cancel,name='cancel'),
   
 
 ]
