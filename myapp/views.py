@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+<<<<<<< HEAD
 from . models import Contact,User,Product,Wishlist,Cart,Reviews
 import random
 import requests
@@ -9,6 +10,11 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from django.utils import timezone
 from django.http import JsonResponse
+=======
+from . models import Contact,User,Product,Wishlist,Cart
+import random
+import requests
+>>>>>>> 0cb652cfbb66f39b836544c05dd964d24044c638
 # Create your views here.
 
 stripe.api_key=settings.STRIPE_PRIVATE_KEY
@@ -377,6 +383,7 @@ def new_password(request):
     else:
         msg="New Password and Confirm New Password Does not matched!"
         return render(request,'new_password.html',{'phone':phone})
+<<<<<<< HEAD
 
 def change_qty(request):
 
@@ -400,3 +407,9 @@ def review(request):
             return render(request,'single_product.html',{'msg':msg})
     else:
             return render(request,'single_product.html')
+=======
+    
+
+def change_qty(request):
+    return render (request,'cart.html')
+>>>>>>> 0cb652cfbb66f39b836544c05dd964d24044c638
