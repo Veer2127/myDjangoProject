@@ -380,7 +380,7 @@ def new_password(request):
     else:
         msg="New Password and Confirm New Password Does not matched!"
         return render(request,'new_password.html',{'phone':phone})
-<<<<<<< HEAD
+
 
 def change_qty(request):
 
@@ -404,9 +404,9 @@ def review(request):
             return render(request,'single_product.html',{'msg':msg})
     else:
             return render(request,'single_product.html')
-=======
+
     
 
 def change_qty(request):
     return render (request,'cart.html')
->>>>>>> 0cb652cfbb66f39b836544c05dd964d24044c638
+
