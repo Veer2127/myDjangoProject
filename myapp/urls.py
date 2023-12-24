@@ -32,12 +32,9 @@ urlpatterns = [
   path('verify-otp/',views.verify_otp,name='verify-otp'),
   path('new_password/',views.new_password,name='new_password'),
   path('change_qty/',views.change_qty,name='change_qty'),
-<<<<<<< HEAD
   path('create-checkout-session/',views.create_checkout_session,name='payment'),
   path('success.html/',views.success,name='success'),
   path('cancel.html/',views.cancel,name='cancel'),
-=======
->>>>>>> 0cb652cfbb66f39b836544c05dd964d24044c638
   
 
 ]
